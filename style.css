@@ -13,28 +13,34 @@ height: 125px;
 width: 400px;
 border: solid black;
 border-bottom: 0;
-background-color: rgb(243, 243, 227) ;
+background-color: rgb(243, 243, 227);
+border-top-left-radius: 12px;
+border-top-right-radius: 12px;
 }
 
 
 #container { 
 display: flex;
-height: 500px;
+flex-direction: column;
+height: 501px;
 width: 400px;
 max-width: 400px;
 background-color: gray;
 border: solid black;
 margin: auto;
+border-bottom-right-radius: 24px;
+border-bottom-left-radius: 24px;
 }
 
 .numpad {
 width: 300px;
 height: 400px;
+min-width: 300px;
+min-height: 400px;
 display: flex;
 flex-direction: column;
-border: solid black;
-border-top: 1px solid black;
-border-left: 0;
+border: 4px inset black;
+
 }
 
 .topRow, .midRow, .botRow{
@@ -42,17 +48,85 @@ display: flex;
 box-sizing: border-box;
 width: 100%;
 height: 100%;
-border: 1px solid black;
+border: 4px groove black;
 }
 
-.one, .two, .three{
+.one, .two{
 display: flex;
 justify-content: center;
 align-items: center;
 height: 100%;
 width: 100%;
-border: 1px solid black;
+border:2px outset black;
+}
+.three {
+    display: flex;
+justify-content: center;
+align-items: center;
+height: 98%;
+width: 100%;
+border:2px outset black;
+border-bottom: 2px outset black;
 }
 
 
+.modBottom{
+display: flex;
+flex-direction: row;
+border: 4px outset black;
+position: relative;
+width: 394px;
+min-height: 88px;
+bottom: 409px;
+border-bottom-right-radius: 24px;
+border-bottom-left-radius: 24px;
+}
+.modRight{
+display: flex;
+flex-direction: column;
+border: 4px outset black;
+min-height: 403px;
+width: 87px;
+position: relative;
+left: 307px;
+bottom: 409px;
+border-top-left-radius: 2px;
+}
 
+.mod{
+display: flex;
+justify-content: center;
+align-items: center;
+height: 99%;
+min-width: 97px;
+border:2px outset black; 
+
+}
+
+.modR{
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+width: 100%;
+border:2px outset black; 
+}
+
+.modBR{
+border-bottom-right-radius: 24px; 
+display: flex;
+justify-content: center;
+align-items: center;
+height: 98%;
+width: 100%;
+border:2px outset black; 
+}
+.modBL{
+border-bottom-left-radius: 24px; 
+display: flex;
+justify-content: center;
+align-items: center;
+height: 98%;
+min-width: 96px;
+border:2px outset black; 
+}
