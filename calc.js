@@ -1,36 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    inputNum(), addPeriod(), equals(), inputMod();
+    inputNum(), addPeriod(), equals(), inputMod(), toggleNeg(), C();
 })//primes buttons on pageload.
 //gross hard coding of single buttons ROFL
-let period = container.querySelector('.modBottom').childNodes[3] 
-function addPeriod(){period.addEventListener('click', function(){
-    return((modifier == '' ? operator = operator += '.' : operand = operand += '.'), displayContent());
-})}
-const togglenNeg = () => {
-    container.querySelector('.modBottom').childNodes[5].addEventListener('click', () => {
-        let check = 0;
-        let neg = '-';
-        if(check == 0 && modifier == ''){
-            operator = neg += operator;
-            check = 1;
-        } else if(check == 0 && modifier !== '') {
-            operand = neg += operand;
-            check = 1;
-        } else if(check == 1 && modifier == ''){
-            operator = operator.slice(1, operator.length)
-            check = 0;
-            console.log('should be working')
-        } else if(check == 1 && modifier !== ''){
-            operand = operand.slice(1, operand.length);
-            check = 0;
-        }
-        displayContent()
-        console.log(check)
-    })
-}
-const equals = () => {
-    container.querySelector('.modBR').addEventListener('click', () => console.log('test'))
-};
 const numpad = document.querySelector('div.numpad')
 const numbers = Array.from(numpad.querySelectorAll('div'));
 let operator = '';// final operator
@@ -38,6 +9,8 @@ let modifier = '';// modifier being used
 let operand = '';//final operand
 let buried = '';//held value (while user is still entering final value)
 let int;//buried but not a string
+let negative = 0;//value indicates weither the number is negative. toggleNeg()/inputMod()
+let final = 0;
 
 //functions
 function  displayContent(){
@@ -75,20 +48,97 @@ function calc(x, y) {
 }
 
 function inputMod(){
-    let testAr = Array.from(document.querySelectorAll('.modR'));
-    console.log(testAr)
-    for (const mod of testAr) {
+    let modifiers = Array.from(document.querySelectorAll('.modR'));
+    console.log(modifiers)
+    for (const mod of modifiers) {
         mod.addEventListener('click', () => {modifier = mod.textContent;
         displayContent()
+        negative = 0;
         });
 }
 }
 
 function clear(){
-    let C = container.querySelector('.modBottom').childNodes[1].addEventListener('click', () => {
        modifier = '';
        operand = '';
        operator = '';
        displayContent();
+}
+
+
+let period = container.querySelector('.modBottom').childNodes[3] 
+function addPeriod(){
+    period.addEventListener('click', function(){
+    if(modifier == ''){
+    operator.includes('.') ? operator = operator.slice(0, operator.length -1): operator = operator += '.';
+    } else {
+    operand.includes('.') ? operand = operand.slice(0, operand.length -1) : operand = operand += '.';}
+    displayContent()
     })
+}
+
+const toggleNeg = () => {
+    container.querySelector('.modBottom').childNodes[5].addEventListener('click', () => {
+        let check = 0;
+        let neg = '-';
+        if(modifier == false && negative == false){
+           operator = neg + operator;
+           negative = 1; 
+           console.log('added to operator')
+        } else if (modifier !== '' && negative == false){
+            operand = neg + operand;
+            negative = 1;
+            console.log('added to operand')
+        } else if (modifier == false && negative == true){
+           operator = operator.slice(1, operator.length); 
+           negative = 0;
+           console.log('removed from operator')
+        } else {
+            operand = operand.slice(1, operand.length);
+            negative = 0;
+            console.log('removed from operand')
+        }
+        console.log(negative)
+        displayContent()
+    })
+}
+
+const C = () => {
+    container.querySelector('.modBL').addEventListener('click', () => {
+        console.log('clearing')
+        clear()
+    })}
+
+const equals = () => {
+    container.querySelector('.modBR').addEventListener('click', () => {
+    if(modifier.includes('X')){
+        modifier = '*';
+    } else if(modifier.includes('%')){
+        modifier = '/';
+    }
+    let one = parseInt(operator)
+    let two = parseInt(operand)
+    console.log(typeof(one))
+    console.log(typeof(two))
+    switch (modifier) {
+        case '+' : 
+        final = one + two;
+        break;
+
+        case '-' :
+        final = one - two;
+        break
+
+        case '*' : 
+        final = one * two;        
+        break
+
+        case '/' : 
+        final = one / two;
+        break;
+    }
+    clear()
+    operator = final;
+    displayContent()
+});
 }
