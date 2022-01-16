@@ -1,10 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     inputNum(), addPeriod(), equals(), inputMod(), toggleNeg(), C();
 })//primes buttons on pageload.
-
+//gross hard coding of single buttons ROFL
 const numpad = document.querySelector('div.numpad')
 const numbers = Array.from(numpad.querySelectorAll('div'));
-
 let operator = '';// final operator
 let modifier = '';// modifier being used 
 let operand = '';//final operand
@@ -29,7 +28,6 @@ function assignValue(n){ // this will be called each time a number is pressed
     }
     displayContent()
 }
-
 function inputNum(){
     for(let i = 0; i < numbers.length; i++) {
         if(i == 0 || i == 4 || i == 8){//kinda gross solution to skipping containers so it doesnt double log events
@@ -43,6 +41,10 @@ function inputNum(){
             ;
         });
     }
+}
+
+function calc(x, y) {
+   return(`${x}``${modifier}` `${y}`)  
 }
 
 function inputMod(){
